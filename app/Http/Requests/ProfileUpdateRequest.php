@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\JenisKelamin;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -17,6 +18,8 @@ class ProfileUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
+            'jenis_kelamin' => ['required', Rule::enum(JenisKelamin::class)],
+            'usia' => ['required', 'integer', 'min:1', 'max:150'],
             'email' => [
                 'required',
                 'string',

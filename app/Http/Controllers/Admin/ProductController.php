@@ -9,10 +9,12 @@ use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category')->latest()->paginate(10);
-        return view('admin.product.index', compact('products'));
+        $searchTerm = $request->input('search');
+        $products = Product::search($searchTerm)->with('category')->latest()->paginate(10);
+
+        return view('admin.product.index', compact('products', 'searchTerm'));
     }
 
     public function create()

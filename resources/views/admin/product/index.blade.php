@@ -11,6 +11,13 @@
             </div>
         @endif
 
+        <form action="{{ route('admin.product.index') }}" method="GET" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Search products..." value="{{ $searchTerm ?? '' }}">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+
         <table class="table mt-3">
             <thead>
                 <tr>
@@ -33,7 +40,7 @@
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <input type="number" name="quantity" value="1" min="1"
-                                    class="form-control d-inline w-25">
+                                    class="form-control d-inline w-16">
                                 <button type="submit" class="btn btn-primary">Tambah ke Keranjang</button>
                             </form>
                         </td>

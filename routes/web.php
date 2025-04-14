@@ -4,6 +4,7 @@ use App\Enums\UserRole;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CartController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\CheckoutController;
@@ -49,6 +50,14 @@ Route::middleware('auth')->group(function () {
         Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
         Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
         Route::delete('/cart/{cartItem}', [CartController::class, 'destroy'])->name('cart.destroy');
+
+        //discount
+        Route::get('/discount', [DiscountController::class, 'index'])->name('discount.index');
+        Route::get('/discount/add', [DiscountController::class, 'add'])->name('discount.create');
+        Route::post('/discount', [DiscountController::class, 'store'])->name('discount.store');
+        Route::get('/discount/{id}/edit', [DiscountController::class, 'edit'])->name('discount.edit');
+        Route::put('/discount/{id}', [DiscountController::class, 'update'])->name('discount.update');
+        Route::delete('/discount/{id}', [DiscountController::class, 'destroy'])->name('discount.destroy');
     });
 
     Route::middleware('role:User')->prefix('user')->group(function () {

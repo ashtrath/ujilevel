@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->decimal('total_harga', 15, 2);
+            $table->foreignId('discount_id')->nullable()->constrained('discounts')->nullOnDelete();
             $table->decimal('final_amount', 15, 2);
             $table->foreignId('payment_method_id')->constrained('payment_methods')->onDelete('cascade');
             $table->timestamps();

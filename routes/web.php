@@ -42,12 +42,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('/payment-methods', PaymentMethodController::class)->names('payment_methods');
     });
 
-    Route::middleware('role:Admin')->prefix('user')->name('user.')->group(function () {
+    Route::middleware('role:User')->prefix('user')->name('user.')->group(function () {
         Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
 
         Route::resource('/cart', CartController::class)->names('cart')->only(['index', 'store', 'destroy']);
         Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
-        
+
         Route::post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
 
     });

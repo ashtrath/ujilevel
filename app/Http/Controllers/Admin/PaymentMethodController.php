@@ -14,11 +14,6 @@ class PaymentMethodController extends Controller
         return view('admin.payment_methods.index', compact('metodePembayaran'));
     }
 
-    public function create()
-    {
-        return view('admin.payment.create');
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -27,7 +22,13 @@ class PaymentMethodController extends Controller
 
         PaymentMethod::create($request->only('nama'));
 
-        return redirect()->route('admin.payment_methods.index')->with('success', 'Metode pembayaran berhasil ditambahkan.');
+        return redirect()->route('admin.payment_methods.index')->with('success',
+            'Metode pembayaran berhasil ditambahkan.');
+    }
+
+    public function create()
+    {
+        return view('admin.payment_methods.create');
     }
 
     public function edit(PaymentMethod $paymentMethod)
@@ -38,12 +39,13 @@ class PaymentMethodController extends Controller
     public function update(Request $request, PaymentMethod $paymentMethod)
     {
         $request->validate([
-            'nama' => 'required|unique:payment_methods,nama,' . $paymentMethod->id . '|max:255'
+            'nama' => 'required|unique:payment_methods,nama,'.$paymentMethod->id.'|max:255'
         ]);
 
         $paymentMethod->update($request->only('nama'));
 
-        return redirect()->route('admin.payment_methods.index')->with('success', 'Metode pembayaran berhasil diperbarui.');
+        return redirect()->route('admin.payment_methods.index')->with('success',
+            'Metode pembayaran berhasil diperbarui.');
     }
 
     public function destroy(PaymentMethod $paymentMethod)

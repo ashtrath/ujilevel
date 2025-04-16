@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\PaymentMethod;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -18,7 +17,7 @@ class CartController extends Controller
         $cart = Cart::with('cartItems.produk')->where('user_id', Auth::id())->first();
         $paymentMethods = PaymentMethod::all(); // Ambil metode pembayaran dari database
 
-        return view('admin.cart.index', compact('cart', 'paymentMethods'));
+        return view('user.cart.index', compact('cart', 'paymentMethods'));
     }
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TransactionStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +12,7 @@ class Transaction extends Model
 
     protected $table = 'transactions';
 
-    protected $fillable = ['user_id', 'total_harga', 'final_amount', 'payment_method_id'];
+    protected $fillable = ['user_id', 'total_harga', 'status', 'final_amount', 'payment_method_id'];
 
     public function user()
     {
@@ -26,5 +27,12 @@ class Transaction extends Model
     public function transactionItems()
     {
         return $this->hasMany(TransactionItem::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'status' => TransactionStatus::class,
+        ];
     }
 }

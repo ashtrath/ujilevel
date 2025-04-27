@@ -3,6 +3,7 @@
 use App\Enums\UserRole;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\ContactController;
@@ -40,6 +41,19 @@ Route::middleware('auth')->group(function () {
         Route::resource('/category', CategoryController::class)->names('category');
         Route::resource('/product', ProductController::class)->names('product');
         Route::resource('/payment-methods', PaymentMethodController::class)->names('payment_methods');
+
+        Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+        Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+        Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+        Route::delete('/cart/{cartItem}', [CartController::class, 'destroy'])->name('cart.destroy');
+
+        //discount
+        Route::get('/discount', [DiscountController::class, 'index'])->name('discount.index');
+        Route::get('/discount/add', [DiscountController::class, 'add'])->name('discount.create');
+        Route::post('/discount', [DiscountController::class, 'store'])->name('discount.store');
+        Route::get('/discount/{id}/edit', [DiscountController::class, 'edit'])->name('discount.edit');
+        Route::put('/discount/{id}', [DiscountController::class, 'update'])->name('discount.update');
+        Route::delete('/discount/{id}', [DiscountController::class, 'destroy'])->name('discount.destroy');
     });
 
     Route::middleware('role:User')->prefix('user')->name('user.')->group(function () {
